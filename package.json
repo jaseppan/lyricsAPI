@@ -1,0 +1,21 @@
+{
+  "name": "lyrics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "mode": "cors",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "JS",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.23.0",
+    "cheerio": "^1.0.0-rc.10",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
