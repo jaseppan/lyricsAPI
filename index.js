@@ -7,6 +7,39 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
+/**
+ * For example /get-artists-by-letter/a
+ */
+
+ app.get('/get-artists-by-letter', function(req, res  ) {
+
+    //var letter = 'a';
+    
+    const letter = req.query.letter;
+    const url = 'https://genius.com/artists-index/' + letter;
+
+    axios.get(url) 
+        .then(response => {
+            const html = response.data;
+            const $ = cheerio.load(html);
+            var artist = '';
+            var list =  [];
+
+            $('.artists_index_list > li > a').each(function() {
+                if( $(this).html() ) {
+                    artist = $(this).text().trim(); 
+                    list.push({
+                        artist
+                    });
+                } 
+            });
+
+            res.json(list);
+
+        }).catch(err => console.log(err));
+
+});
+
 
 /**
  * For example /get-artist-lyrics?artist=Tapio-rautavaara
