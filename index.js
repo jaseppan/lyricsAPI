@@ -27,7 +27,10 @@ app.use(cors());
 
             $('.artists_index_list > li > a').each(function() {
                 if( $(this).html() ) {
-                    artist = $(this).text().trim(); 
+                    artist = {
+                        'name': $(this).text().trim(),
+                        'url': $(this).attr('href'),
+                    } 
                     list.push({
                         artist
                     });
