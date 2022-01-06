@@ -15,24 +15,18 @@ app.use(cors());
 app.get('/get-artist-lyrics', function(req, res  ) {
     
     const artist = req.query.artist;
-    const url = 'https://genius.com/' + artist;
+    const url = 'https://genius.com/artists/' + artist;
 
     axios.get(url) 
         .then(response => {
             const html = response.data;
             const $ = cheerio.load(html);
-            const lyrics = [];
-            
+            const output = [];
+            var meta =  $('meta[itemprop="page_data"]').attr('content');
 
-            lyrics.push({
-                html,
-            });
-            
-            res.json(lyrics);
-            //console.log(lyrics)
+            res.json(JSON.parse(meta)); 
 
         }).catch(err => console.log(err));
-
 
 });
 
@@ -42,7 +36,7 @@ app.get('/get-artist-lyrics', function(req, res  ) {
 
 app.get('/get-lyric', function(req, res  ) {
     
-    const lyricSrc = req.query.lyric;
+    const lyricSrc = req.query.lyric; 
     const url = 'https://genius.com/' + lyricSrc;
     axios.get(url)
         .then(response => {
